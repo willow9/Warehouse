@@ -24,6 +24,8 @@ export default class State extends Component<MyProps, MyState> {
       return item.ean !== productId;
     });
     this.setState({ items: newItems });
+    localStorage.removeItem("items");
+    localStorage.setItem("items", JSON.stringify(newItems));
   };
   componentDidMount() {
     const items = [
