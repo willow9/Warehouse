@@ -1,14 +1,17 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Table from "./Table";
+import State from "./context/State";
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path='/products' component={Table} />
-      </Switch>
-    </BrowserRouter>
+    <State>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path='/' component={Table} />
+        </Switch>
+      </BrowserRouter>
+    </State>
   );
 };
 
