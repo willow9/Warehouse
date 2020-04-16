@@ -27,11 +27,22 @@ export default class State extends Component<MyProps, MyState> {
     localStorage.removeItem("items");
     localStorage.setItem("items", JSON.stringify(newItems));
   };
+  changeActivation = (itemId: number) => {
+    this.state.items.find((item) => {
+      if (item.ean == itemId) {
+        item.active = !item.active;
+      }
+    });
+
+    // localStorage.removeItem("items");
+    // localStorage.setItem("items", JSON.stringify(this.state.items));
+  };
+
   componentDidMount() {
     const items = [
-      { name: "Cheese", type: "food", weight: 12.36, color: "blue", active: false, ean: 12121 },
+      { name: "Cheese", type: "food", weight: 12.36, color: "blue", active: true, ean: 12121 },
       { name: "Book", type: "entertainment", weight: 2.36, color: "white", active: false, ean: 123221 },
-      { name: "Game", type: "entertainment", weight: 1.3, color: "NA", active: false, ean: 98 },
+      { name: "Game", type: "entertainment", weight: 1.3, color: "NA", active: true, ean: 98 },
       { name: "Scissors", type: "tools", weight: 5.3, color: "silver", active: false, ean: 1258 },
     ];
     if (!localStorage.getItem("items")) {
@@ -42,7 +53,9 @@ export default class State extends Component<MyProps, MyState> {
   }
   render() {
     return (
-      <ProductContext.Provider value={{ items: this.state.items, removeItem: this.removeItem }}>
+      <ProductContext.Provider
+        value={{ items: this.state.items, removeItem: this.removeItem, changeActivation: this.changeActivation }}
+      >
         {this.props.children}
       </ProductContext.Provider>
     );
