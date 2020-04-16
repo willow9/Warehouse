@@ -27,6 +27,14 @@ export default class State extends Component<MyProps, MyState> {
     localStorage.removeItem("items");
     localStorage.setItem("items", JSON.stringify(newItems));
   };
+
+  addItem = (item: Item) => {
+    console.log(item);
+
+    this.setState({
+      items: [...this.state.items, item],
+    });
+  };
   changeActivation = (itemId: number) => {
     this.state.items.find((item) => {
       if (item.ean == itemId) {
@@ -54,7 +62,12 @@ export default class State extends Component<MyProps, MyState> {
   render() {
     return (
       <ProductContext.Provider
-        value={{ items: this.state.items, removeItem: this.removeItem, changeActivation: this.changeActivation }}
+        value={{
+          items: this.state.items,
+          removeItem: this.removeItem,
+          changeActivation: this.changeActivation,
+          addItem: this.addItem,
+        }}
       >
         {this.props.children}
       </ProductContext.Provider>
