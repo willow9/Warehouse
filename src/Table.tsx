@@ -78,6 +78,9 @@ class Table extends Component<MyProps, MyState> {
           </thead>
           <tbody>{this.context.items.map(this.renderItem)}</tbody>
         </ReactBootstrap.Table>
+        <Link to={`/products/create`}>
+          <button>Create Item</button>
+        </Link>
       </>
     );
   }
