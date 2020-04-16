@@ -32,7 +32,7 @@ class Table extends Component<MyProps, MyState> {
       <tr
         key={index}
         style={{
-          backgroundColor: item.active ? "grey" : "blue",
+          backgroundColor: item.active ? "white" : "#C0C0C0",
         }}
       >
         <td>{item.name}</td>
@@ -44,15 +44,15 @@ class Table extends Component<MyProps, MyState> {
         </td>
         <td>{item.ean}</td>
         <td>
-          <Link to={`/users/${item.ean}`}>
-            <button>View</button>
+          <Link to={`/products/${item.ean}`}>
+            <button disabled={!item.active}>View</button>
           </Link>
         </td>
         <td>
-          <button>Edit</button>
+          <button disabled={!item.active}>Edit</button>
         </td>
         <td>
-          <button id={item.ean} onClick={this.handleDelete}>
+          <button id={item.ean} onClick={this.handleDelete} disabled={!item.active}>
             Delete
           </button>
         </td>
