@@ -48,7 +48,9 @@ class Table extends Component<MyProps, MyState> {
           </Link>
         </td>
         <td>
-          <button disabled={!item.active}>Edit</button>
+          <Link to={`/products/${item.ean}/edit`}>
+            <button disabled={!item.active}>Edit</button>
+          </Link>
         </td>
         <td>
           <button id={item.ean} onClick={this.handleDelete} disabled={!item.active}>

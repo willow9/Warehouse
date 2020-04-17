@@ -7,4 +7,5 @@ export default React.createContext({
   removeItem: (productId: number) => {},
   changeActivation: (itemId: number) => {},
   addItem: (item: Item) => {},
+  editItem: (item: Item, itemId: number) => {},
 });

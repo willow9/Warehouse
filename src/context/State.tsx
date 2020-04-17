@@ -25,6 +25,12 @@ export default class State extends Component<{}, ItemsState> {
       items: [...this.state.items, item],
     });
   };
+  editItem = (item: Item, initialItemId: number) => {
+    const newItems = this.state.items.filter((item) => {
+      return item.ean !== initialItemId;
+    });
+    this.setState({ items: [...newItems, item] });
+  };
   changeItemActivation = (itemId: number) => {
     this.state.items.find((item) => {
       if (item.ean == itemId) {
@@ -50,8 +56,6 @@ export default class State extends Component<{}, ItemsState> {
     this.setState({ items: JSON.parse(localStorage.getItem("items")!) });
   }
   render() {
-    console.log(this.state.items);
-
     return (
       <ProductContext.Provider
         value={{
@@ -59,6 +63,7 @@ export default class State extends Component<{}, ItemsState> {
           removeItem: this.removeItem,
           changeActivation: this.changeItemActivation,
           addItem: this.addItem,
+          editItem: this.editItem,
         }}
       >
         {this.props.children}
