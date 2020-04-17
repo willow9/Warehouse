@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ProductContext from "./context/ProductsContext";
+import ProductContext from "../context/ProductsContext";
 import { RouteComponentProps } from "react-router-dom";
 import * as ReactBootstrap from "react-bootstrap";
 

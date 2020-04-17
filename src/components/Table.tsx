@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import "./App.css";
 import * as ReactBootstrap from "react-bootstrap";
-import ProductContext from "./context/ProductsContext";
+import ProductContext from "../context/ProductsContext";
 
 type MyProps = {};
 type MyState = { togleActivation: boolean };

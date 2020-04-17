@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Table from "./Table";
-import Product from "./Product";
-import NewItemForm from "./NewItemForm";
+import Table from "./components/Table";
+import Product from "./components/Product";
+import NewItemForm from "./components/NewItemForm";
 import State from "./context/State";
 
 const App = () => {
