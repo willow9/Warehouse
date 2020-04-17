@@ -1,18 +1,10 @@
 import React, { Component } from "react";
 import ProductContext from "./ProductsContext";
+import Item from "../interfaces/IItem";
 
-type MyProps = {};
-type MyState = { items: Array<Item> };
-interface Item {
-  name: string;
-  type: string;
-  weight: number;
-  color: string;
-  active: boolean;
-  ean: number;
-}
+type ItemsState = { items: Array<Item> };
 
-export default class State extends Component<MyProps, MyState> {
+export default class State extends Component<{}, ItemsState> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -29,13 +21,11 @@ export default class State extends Component<MyProps, MyState> {
   };
 
   addItem = (item: Item) => {
-    console.log(item);
-
     this.setState({
       items: [...this.state.items, item],
     });
   };
-  changeActivation = (itemId: number) => {
+  changeItemActivation = (itemId: number) => {
     this.state.items.find((item) => {
       if (item.ean == itemId) {
         item.active = !item.active;
@@ -60,12 +50,14 @@ export default class State extends Component<MyProps, MyState> {
     this.setState({ items: JSON.parse(localStorage.getItem("items")!) });
   }
   render() {
+    console.log(this.state.items);
+
     return (
       <ProductContext.Provider
         value={{
           items: this.state.items,
           removeItem: this.removeItem,
-          changeActivation: this.changeActivation,
+          changeActivation: this.changeItemActivation,
           addItem: this.addItem,
         }}
       >

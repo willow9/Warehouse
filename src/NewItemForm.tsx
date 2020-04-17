@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import ProductContext from "./context/ProductsContext";
 import Item from "./interfaces/IItem";
+import { RouteComponentProps } from "react-router-dom";
 
-class NewItemForm extends Component<{}, Item> {
+interface NewItemProps extends RouteComponentProps<{}> {}
+
+class NewItemForm extends Component<NewItemProps, Item> {
   static contextType = ProductContext;
   constructor(props: any) {
     super(props);
@@ -17,7 +20,6 @@ class NewItemForm extends Component<{}, Item> {
   }
   handleChange = (e: any) => {
     this.setState({ ...this.state, [e.target.id]: e.target.value });
-    console.log(e.target.value);
   };
   handleCheckboxChange = () => {
     this.setState({ ...this.state, active: !this.state.active });
@@ -33,6 +35,7 @@ class NewItemForm extends Component<{}, Item> {
       ean: Number(this.state.ean),
     };
     this.context.addItem(newItem);
+    this.props.history.push("/");
   };
   render() {
     return (
