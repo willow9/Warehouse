@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import ProductContext from "../context/ProductsContext";
 import { RouteComponentProps } from "react-router-dom";
 import Item from "../interfaces/IItem";
-import { EditItemForm } from "./EditItemForm";
+import ItemForm from "./ItemForm";
 
-interface ItemProps extends RouteComponentProps<{ ean: string }> {}
+interface IProps extends RouteComponentProps<{ ean: string }> {}
 
-interface ItemtState {
+interface IState {
   name: string;
   type: string;
   weight: number;
@@ -14,16 +14,25 @@ interface ItemtState {
   active: boolean;
   ean: number;
   initialEan: number;
+  editItem: boolean;
 }
 
-export default class EditItem extends Component<ItemProps, ItemtState> {
+export default class HandleItem extends Component<IProps, IState> {
   static contextType = ProductContext;
-  constructor(props: ItemProps, context: any) {
+  constructor(props: IProps, context: any) {
     super(props);
-    const item: Item = context.items.find((item: any) => {
-      return this.props.match.params.ean == item.ean;
-    });
+    let item;
+    let editItem;
 
+    if (this.props.match.path === "/products/create") {
+      item = { name: "", type: "", weight: 0, color: "", active: false, ean: 0 };
+      editItem = false;
+    } else {
+      item = context.items.find((item: any) => {
+        return this.props.match.params.ean == item.ean;
+      });
+      editItem = true;
+    }
     this.state = {
       name: item.name,
       type: item.type,
@@ -32,6 +41,7 @@ export default class EditItem extends Component<ItemProps, ItemtState> {
       active: item.active,
       ean: item.ean,
       initialEan: item.ean,
+      editItem: editItem,
     };
   }
   handleChange = (e: any) => {
@@ -54,12 +64,37 @@ export default class EditItem extends Component<ItemProps, ItemtState> {
     this.context.editItem(newItem, initialEan);
     this.props.history.push("/");
   };
+  addItem = () => {
+    if (this.validateInput()) {
+      const newItem: Item = {
+        name: this.state.name,
+        type: this.state.type,
+        weight: Number(this.state.weight),
+        color: this.state.color,
+        active: this.state.active,
+        ean: Number(this.state.ean),
+      };
+      this.context.addItem(newItem);
+      this.props.history.push("/");
+    }
+  };
+  validateInput = () => {
+    if (
+      this.state.name === "" ||
+      this.state.type === "" ||
+      this.state.weight === 0 ||
+      this.state.color === "" ||
+      this.state.ean === 0
+    ) {
+      return false;
+    } else return true;
+  };
 
   render() {
     return (
       <div className='container'>
-        <EditItemForm
-          title='Edit Item'
+        <ItemForm
+          title={this.state.editItem ? "Edit Item" : "Add New Item"}
           name={this.state.name}
           type={this.state.type}
           weight={Number(this.state.weight)}
@@ -69,9 +104,8 @@ export default class EditItem extends Component<ItemProps, ItemtState> {
           handleChange={this.handleChange}
           handleCheckboxChange={this.handleCheckboxChange}
           changeItem={this.changeItem}
-          addItem={() => {}}
-          required={false}
-          editItem={true}
+          addItem={this.addItem}
+          editItem={this.state.editItem}
         />
       </div>
     );
