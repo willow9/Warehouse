@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import ProductContext from "../context/ProductsContext";
+import { Tab, Table, Tabs } from "react-bootstrap";
 import { RouteComponentProps } from "react-router-dom";
-import * as ReactBootstrap from "react-bootstrap";
+import ProductContext from "../context/ProductsContext";
 import Item from "../interfaces/IItem";
+import { ItemHistory } from "./ItemHistory";
 import { TableHeader } from "./TableHeader";
 
 interface IProductProps extends RouteComponentProps<{ ean: string }> {}
@@ -39,11 +40,24 @@ export default class ItemPreview extends Component<IProductProps, IProductState>
   render() {
     return (
       <div>
-        <h1>Product</h1>
-        <ReactBootstrap.Table striped bordered hover>
-          <TableHeader withActions={false}></TableHeader>
-          <tbody>{this.state.item ? this.renderItem(this.state.item) : null}</tbody>
-        </ReactBootstrap.Table>
+        <Tabs defaultActiveKey='details' id='uncontrolled-tab-example'>
+          <Tab eventKey='details' title='Details'>
+            {/* <Sonnet /> */}
+            <div>
+              <h1>Product</h1>
+              <Table striped bordered hover>
+                <TableHeader withActions={false}></TableHeader>
+                <tbody>{this.state.item ? this.renderItem(this.state.item) : null}</tbody>
+              </Table>
+            </div>
+          </Tab>
+          <Tab eventKey='price' title='Price History'>
+            <ItemHistory title='Price' data={this.state.item.price} />
+          </Tab>
+          <Tab eventKey='quantity' title='Quantity History'>
+            <ItemHistory title='Quantity' data={this.state.item.quantity} />
+          </Tab>
+        </Tabs>
       </div>
     );
   }

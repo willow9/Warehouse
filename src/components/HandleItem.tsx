@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import ProductContext from "../context/ProductsContext";
 import { RouteComponentProps } from "react-router-dom";
-import Item from "../interfaces/IItem";
+import ProductContext from "../context/ProductsContext";
 import ItemForm from "./ItemForm";
 
 interface IProps extends RouteComponentProps<{ ean: string }> {}

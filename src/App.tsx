@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Table from "./components/Table";
-import Product from "./components/ItemPreview";
 import HandleItem from "./components/HandleItem";
+import Product from "./components/ItemPreview";
+import ItemTable from "./components/ItemTable";
 import State from "./context/State";
 
 const App = () => {
@@ -10,7 +10,7 @@ const App = () => {
     <State>
       <BrowserRouter>
         <Switch>
-          <Route exact path='/' component={Table} />
+          <Route exact path='/' component={ItemTable} />
           <Route exact path='/products/create' component={HandleItem} />
           <Route exact path='/products/:ean/edit' component={HandleItem} />
           <Route exact path='/products/:ean' component={Product} />

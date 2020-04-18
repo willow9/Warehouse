@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import * as ReactBootstrap from "react-bootstrap";
+import { Link } from "react-router-dom";
 import ProductContext from "../context/ProductsContext";
 import { TableHeader } from "./TableHeader";
 
 type MyProps = {};
 type MyState = { togleActivation: boolean; quantity: number };
 
-class Table extends Component<MyProps, MyState> {
+class ItemTable extends Component<MyProps, MyState> {
   static contextType = ProductContext;
 
   constructor(props: any) {
@@ -108,4 +108,4 @@ class Table extends Component<MyProps, MyState> {
     );
   }
 }
-export default Table;
+export default ItemTable;
