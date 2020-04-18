@@ -5,7 +5,7 @@ import ProductContext from "../context/ProductsContext";
 import { TableHeader } from "./TableHeader";
 
 type MyProps = {};
-type MyState = { togleActivation: boolean };
+type MyState = { togleActivation: boolean; quantity: number };
 
 class Table extends Component<MyProps, MyState> {
   static contextType = ProductContext;
@@ -14,6 +14,7 @@ class Table extends Component<MyProps, MyState> {
     super(props);
     this.state = {
       togleActivation: false,
+      quantity: 0,
     };
   }
 
@@ -27,12 +28,21 @@ class Table extends Component<MyProps, MyState> {
     this.context.changeActivation(e.target.id);
     this.setState({ togleActivation: !this.state.togleActivation });
   };
+
+  changeQuantity = (e: any) => {
+    this.setState({ ...this.state, [e.target.name]: e.target.value });
+    this.context.changeQuantity(e.target.id, e.target.value);
+  };
+  changePrice = (e: any) => {
+    this.context.changePrice(e.target.id, e.target.value);
+  };
   renderItem = (item: any, index: number) => {
     return (
       <tr
         key={index}
         style={{
           backgroundColor: item.active ? "white" : "#C0C0C0",
+          color: item.quantity == 0 ? "red" : "#212529",
         }}
       >
         <td>{item.name}</td>
@@ -44,8 +54,26 @@ class Table extends Component<MyProps, MyState> {
           <input type='checkbox' defaultChecked={item.active} id={item.ean} onChange={this.toggleCheckbox} />
         </td>
 
-        <td>{item.quantity}</td>
-        <td>{item.price}</td>
+        <td>
+          <input
+            type='number'
+            name='quantity'
+            id={item.ean}
+            placeholder={item.quantity}
+            onChange={this.changeQuantity}
+            disabled={!item.active}
+          />
+        </td>
+        <td>
+          <input
+            type='number'
+            name='price'
+            id={item.ean}
+            placeholder={item.price}
+            onChange={this.changePrice}
+            disabled={!item.active}
+          />
+        </td>
         <td>
           <Link to={`/products/${item.ean}`}>
             <button disabled={!item.active}>View</button>

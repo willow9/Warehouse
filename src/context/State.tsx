@@ -41,6 +41,27 @@ export default class State extends Component<{}, ItemsState> {
     // localStorage.removeItem("items");
     // localStorage.setItem("items", JSON.stringify(this.state.items));
   };
+  changeQuantity = (itemId: number, newValue: number) => {
+    this.state.items.find((item) => {
+      if (item.ean == itemId) {
+        item.quantity = newValue;
+      }
+    });
+  };
+  changePrice = (itemId: number, newValue: number) => {
+    this.state.items.find((item) => {
+      if (item.ean == itemId) {
+        item.price = newValue;
+      }
+    });
+  };
+  changeItemProperty = (itemId: number, newValue: number, property: string) => {
+    this.state.items.find((item) => {
+      if (item.ean == itemId) {
+        //  item= {name : "hello", ...remaining}
+      }
+    });
+  };
 
   componentDidMount() {
     const items = [
@@ -81,7 +102,7 @@ export default class State extends Component<{}, ItemsState> {
         color: "silver",
         active: false,
         ean: 1258,
-        quantity: 1,
+        quantity: 0,
         price: 23.65,
       },
     ];
@@ -100,6 +121,8 @@ export default class State extends Component<{}, ItemsState> {
           changeActivation: this.changeItemActivation,
           addItem: this.addItem,
           editItem: this.editItem,
+          changePrice: this.changePrice,
+          changeQuantity: this.changeQuantity,
         }}
       >
         {this.props.children}

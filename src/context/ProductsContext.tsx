@@ -8,4 +8,6 @@ export default React.createContext({
   changeActivation: (itemId: number) => {},
   addItem: (item: Item) => {},
   editItem: (item: Item, itemId: number) => {},
+  changeQuantity: (itemId: number, newValue: number) => {},
+  changePrice: (itemId: number, newValue: number) => {},
 });
