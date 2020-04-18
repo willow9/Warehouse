@@ -44,10 +44,46 @@ export default class State extends Component<{}, ItemsState> {
 
   componentDidMount() {
     const items = [
-      { name: "Cheese", type: "food", weight: 12.36, color: "blue", active: true, ean: 12121 },
-      { name: "Book", type: "entertainment", weight: 2.36, color: "white", active: false, ean: 123221 },
-      { name: "Game", type: "entertainment", weight: 1.3, color: "NA", active: true, ean: 98 },
-      { name: "Scissors", type: "tools", weight: 5.3, color: "silver", active: false, ean: 1258 },
+      {
+        name: "Cheese",
+        type: "food",
+        weight: 12.36,
+        color: "blue",
+        active: true,
+        ean: 12121,
+        quantity: 1,
+        price: 23.65,
+      },
+      {
+        name: "Book",
+        type: "entertainment",
+        weight: 2.36,
+        color: "white",
+        active: false,
+        ean: 123221,
+        quantity: 1,
+        price: 23.65,
+      },
+      {
+        name: "Game",
+        type: "entertainment",
+        weight: 1.3,
+        color: "NA",
+        active: true,
+        ean: 98,
+        quantity: 1,
+        price: 23.65,
+      },
+      {
+        name: "Scissors",
+        type: "tools",
+        weight: 5.3,
+        color: "silver",
+        active: false,
+        ean: 1258,
+        quantity: 1,
+        price: 23.65,
+      },
     ];
     if (!localStorage.getItem("items")) {
       localStorage.setItem("items", JSON.stringify(items));

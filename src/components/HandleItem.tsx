@@ -52,7 +52,7 @@ export default class HandleItem extends Component<IProps, IState> {
   };
   changeItem = (e: any) => {
     e.preventDefault();
-    const newItem: Item = {
+    const newItem: any = {
       name: this.state.name,
       type: this.state.type,
       weight: Number(this.state.weight),
@@ -66,7 +66,7 @@ export default class HandleItem extends Component<IProps, IState> {
   };
   addItem = () => {
     if (this.validateInput()) {
-      const newItem: Item = {
+      const newItem: any = {
         name: this.state.name,
         type: this.state.type,
         weight: Number(this.state.weight),

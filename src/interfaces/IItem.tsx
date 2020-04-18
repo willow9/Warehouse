@@ -5,5 +5,7 @@ interface Item {
   color: string;
   active: boolean;
   ean: number;
+  quantity: number;
+  price: number;
 }
 export default Item;

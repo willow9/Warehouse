@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Table from "./components/Table";
-import Product from "./components/Product";
+import Product from "./components/ItemPreview";
 import HandleItem from "./components/HandleItem";
 import State from "./context/State";
 
