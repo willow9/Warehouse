@@ -27,12 +27,13 @@ class ItemTable extends Component<MyProps, MyState> {
   };
   toggleCheckbox = (e: any) => {
     this.context.changeActivation(e.target.id);
-    this.setState({ togleActivation: !this.state.togleActivation });
+    // this.setState({ togleActivation: !this.state.togleActivation });
   };
 
-  changeQuantity = (e: any) => {
-    this.setState({ ...this.state, [e.target.name]: e.target.value });
-    this.context.changeQuantity(e.target.id, e.target.value);
+  changeQuantityOrPrice = (e: any) => {
+    // this.setState({ ...this.state, [e.target.name]: e.target.value });
+    this.context.changeQuantityOrPrice(e.target.id, e.target.value, e.target.name);
+    console.log(e.target.name);
   };
   changePrice = (e: any) => {
     // this.setState({ ...this.state, [e.target.name]: e.target.value });
@@ -65,7 +66,7 @@ class ItemTable extends Component<MyProps, MyState> {
             name='quantity'
             id={item.ean}
             placeholder={item.quantity}
-            onChange={this.changeQuantity}
+            onChange={this.changeQuantityOrPrice}
             disabled={!item.active}
           />
         </td>
@@ -75,8 +76,8 @@ class ItemTable extends Component<MyProps, MyState> {
             name='price'
             id={item.ean}
             placeholder={item.price}
-            // onBlur={this.changePrice}
-            onChange={this.changePrice}
+            onBlur={this.changeQuantityOrPrice}
+            // onChange={this.changePrice}
             disabled={!item.active}
           />
         </td>

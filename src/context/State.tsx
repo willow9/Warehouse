@@ -16,8 +16,8 @@ export default class State extends Component<{}, ItemsState> {
       return item.ean !== productId;
     });
     this.setState({ items: newItems });
-    localStorage.removeItem("items");
-    localStorage.setItem("items", JSON.stringify(newItems));
+    // localStorage.removeItem("items");
+    // localStorage.setItem("items", JSON.stringify(newItems));
   };
 
   addItem = (item: Item) => {
@@ -32,11 +32,13 @@ export default class State extends Component<{}, ItemsState> {
     this.setState({ items: [...newItems, item] });
   };
   changeItemActivation = (itemId: number) => {
-    this.state.items.find((item) => {
+    const changedItems = this.state.items;
+    changedItems.find((item) => {
       if (item.ean == itemId) {
         item.active = !item.active;
       }
     });
+    this.setState({ items: [...changedItems] });
 
     // localStorage.removeItem("items");
     // localStorage.setItem("items", JSON.stringify(this.state.items));
@@ -47,37 +49,52 @@ export default class State extends Component<{}, ItemsState> {
         item.quantity = newValue;
       }
     });
+    // console.log(this.state);
   };
-  changePrice = (itemId: number, newValue: number) => {
-    this.state.items.find((item) => {
-      if (item.ean == itemId) {
-        item.price = newValue;
-      }
-    });
-    // this.changePriceHistory(itemId, newValue);
+  changeQuantityOrPrice = (itemId: number, newValue: number, property: string) => {
+    // this.state.items.find((item) => {
+    //   if (item.ean == itemId) {
+    //     item.price = newValue;
+    //   }
+    // });
+    // console.log(itemId);
+    // console.log(newValue);
+    // console.log(property);
+
+    const newItem = this.changeItemProperty(itemId, newValue, property);
+    // console.log(newItem);
+
+    this.changeItemProperty(itemId, newValue, property);
+    this.changePriceHistory(itemId, newValue);
+    // console.log(this.state.items);
   };
   changeItemProperty = (itemId: number, newValue: number, property: string) => {
+    const item = this.state.items.find((item) => {
+      return item.ean == itemId;
+    });
+    return { item, [property]: newValue };
+  };
+  changePriceHistory = (itemId: number, newValue: number) => {
     this.state.items.find((item) => {
       if (item.ean == itemId) {
-        //  item= {name : "hello", ...remaining}
+        if (item.priceHistory.length === 5 && item.priceHistory[4] != newValue) {
+          for (let i = 0; i <= 4; i++) {
+            item.priceHistory[i] = item.priceHistory[i + 1];
+          }
+          item.priceHistory[4] = Number(newValue);
+        } else {
+          if (item.priceHistory[item.priceHistory.length - 1] != newValue) {
+            item.priceHistory[item.priceHistory.length] = Number(newValue);
+          }
+        }
       }
     });
+    // console.log(this.state.items);
   };
-  // changePriceHistory = (itemId: number, newValue: number) => {
-  //   this.state.items.find((item) => {
-  //     if (item.ean == itemId) {
-  //       if (item.history.price.length === 5) {
-  //         item.history.price[0] = newValue;
-  //         for (let i = 0; i < 5; i++) {
-  //           item.history.price[i] = item.history.price[i + 1];
-  //         }
-  //         item.history.price[4] = Number(newValue);
-  //       }
-  //     }
-  //   });
-  //   console.log(this.state.items);
-  // };
-
+  componentDidUpdate() {
+    console.log("reender");
+    console.log(this.state.items);
+  }
   componentDidMount() {
     const items = [
       {
@@ -89,18 +106,20 @@ export default class State extends Component<{}, ItemsState> {
         ean: 12121,
         quantity: 1,
         price: 23.65,
-        history: { price: [1, 2, 3, 4, 5], quantity: [123, 0] },
+        priceHistory: [1, 2, 3, 4, 5],
+        quantityHistory: [123, 0],
       },
       {
         name: "Book",
         type: "entertainment",
         weight: 2.36,
         color: "white",
-        active: false,
+        active: true,
         ean: 123221,
         quantity: 1,
         price: 23.65,
-        history: { price: [4.2, 3.66], quantity: [9, 0] },
+        priceHistory: [1, 2, 3],
+        quantityHistory: [123, 0, 23, 65.25],
       },
       {
         name: "Game",
@@ -111,7 +130,8 @@ export default class State extends Component<{}, ItemsState> {
         ean: 98,
         quantity: 1,
         price: 23.65,
-        history: { price: [], quantity: [] },
+        priceHistory: [1, 2, 3],
+        quantityHistory: [123, 0, 23, 65.25],
       },
       {
         name: "Scissors",
@@ -122,7 +142,8 @@ export default class State extends Component<{}, ItemsState> {
         ean: 1258,
         quantity: 0,
         price: 23.65,
-        history: { price: [], quantity: [] },
+        priceHistory: [1, 2, 3],
+        quantityHistory: [123, 0, 23, 65.25],
       },
     ];
     if (!localStorage.getItem("items")) {
@@ -140,8 +161,8 @@ export default class State extends Component<{}, ItemsState> {
           changeActivation: this.changeItemActivation,
           addItem: this.addItem,
           editItem: this.editItem,
-          changePrice: this.changePrice,
-          changeQuantity: this.changeQuantity,
+          // changePrice: this.changePrice,
+          changeQuantityOrPrice: this.changeQuantityOrPrice,
         }}
       >
         {this.props.children}

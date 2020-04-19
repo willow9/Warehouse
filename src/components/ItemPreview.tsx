@@ -43,7 +43,6 @@ export default class ItemPreview extends Component<IProductProps, IProductState>
       <div>
         <Tabs defaultActiveKey='details' id='uncontrolled-tab-example'>
           <Tab eventKey='details' title='Details' transition={false}>
-            {/* <Sonnet /> */}
             <div>
               <h1>Product</h1>
               <Table striped bordered hover>
