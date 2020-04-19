@@ -5,7 +5,7 @@ import ProductContext from "../context/ProductsContext";
 import { TableHeader } from "./TableHeader";
 
 type MyProps = {};
-type MyState = { togleActivation: boolean; quantity: number };
+type MyState = { togleActivation: boolean; quantity: number; price: number };
 
 class ItemTable extends Component<MyProps, MyState> {
   static contextType = ProductContext;
@@ -15,6 +15,7 @@ class ItemTable extends Component<MyProps, MyState> {
     this.state = {
       togleActivation: false,
       quantity: 0,
+      price: 0,
     };
   }
 
@@ -34,8 +35,12 @@ class ItemTable extends Component<MyProps, MyState> {
     this.context.changeQuantity(e.target.id, e.target.value);
   };
   changePrice = (e: any) => {
+    // this.setState({ ...this.state, [e.target.name]: e.target.value });
     this.context.changePrice(e.target.id, e.target.value);
   };
+  // fixValue = (e: any) => {
+  //   this.context.changePrice(e.target.id, e.target.value);
+  // };
   renderItem = (item: any, index: number) => {
     return (
       <tr
@@ -70,6 +75,7 @@ class ItemTable extends Component<MyProps, MyState> {
             name='price'
             id={item.ean}
             placeholder={item.price}
+            // onBlur={this.changePrice}
             onChange={this.changePrice}
             disabled={!item.active}
           />

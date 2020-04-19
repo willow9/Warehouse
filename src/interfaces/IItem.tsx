@@ -7,5 +7,6 @@ interface Item {
   ean: number;
   quantity: number;
   price: number;
+  history: { price: Array<number>; quantity: Array<number> };
 }
 export default Item;

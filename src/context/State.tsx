@@ -54,6 +54,7 @@ export default class State extends Component<{}, ItemsState> {
         item.price = newValue;
       }
     });
+    // this.changePriceHistory(itemId, newValue);
   };
   changeItemProperty = (itemId: number, newValue: number, property: string) => {
     this.state.items.find((item) => {
@@ -62,6 +63,20 @@ export default class State extends Component<{}, ItemsState> {
       }
     });
   };
+  // changePriceHistory = (itemId: number, newValue: number) => {
+  //   this.state.items.find((item) => {
+  //     if (item.ean == itemId) {
+  //       if (item.history.price.length === 5) {
+  //         item.history.price[0] = newValue;
+  //         for (let i = 0; i < 5; i++) {
+  //           item.history.price[i] = item.history.price[i + 1];
+  //         }
+  //         item.history.price[4] = Number(newValue);
+  //       }
+  //     }
+  //   });
+  //   console.log(this.state.items);
+  // };
 
   componentDidMount() {
     const items = [
@@ -74,6 +89,7 @@ export default class State extends Component<{}, ItemsState> {
         ean: 12121,
         quantity: 1,
         price: 23.65,
+        history: { price: [1, 2, 3, 4, 5], quantity: [123, 0] },
       },
       {
         name: "Book",
@@ -84,6 +100,7 @@ export default class State extends Component<{}, ItemsState> {
         ean: 123221,
         quantity: 1,
         price: 23.65,
+        history: { price: [4.2, 3.66], quantity: [9, 0] },
       },
       {
         name: "Game",
@@ -94,6 +111,7 @@ export default class State extends Component<{}, ItemsState> {
         ean: 98,
         quantity: 1,
         price: 23.65,
+        history: { price: [], quantity: [] },
       },
       {
         name: "Scissors",
@@ -104,6 +122,7 @@ export default class State extends Component<{}, ItemsState> {
         ean: 1258,
         quantity: 0,
         price: 23.65,
+        history: { price: [], quantity: [] },
       },
     ];
     if (!localStorage.getItem("items")) {

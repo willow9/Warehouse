@@ -15,6 +15,7 @@ export default class ItemPreview extends Component<IProductProps, IProductState>
   static contextType = ProductContext;
   constructor(props: IProductProps, context: any) {
     super(props);
+
     this.state = {
       item: context.items.find((item: any) => {
         return this.props.match.params.ean == item.ean;
@@ -41,7 +42,7 @@ export default class ItemPreview extends Component<IProductProps, IProductState>
     return (
       <div>
         <Tabs defaultActiveKey='details' id='uncontrolled-tab-example'>
-          <Tab eventKey='details' title='Details'>
+          <Tab eventKey='details' title='Details' transition={false}>
             {/* <Sonnet /> */}
             <div>
               <h1>Product</h1>
@@ -51,11 +52,19 @@ export default class ItemPreview extends Component<IProductProps, IProductState>
               </Table>
             </div>
           </Tab>
-          <Tab eventKey='price' title='Price History'>
-            <ItemHistory title='Price' data={this.state.item.price} />
+          <Tab eventKey='price' title='Price History' transition={false}>
+            <ItemHistory
+              title='Price'
+              // data={this.state.item.history.price ? this.state.item.history.price : [0]}
+              data={[45, 86, 23, 23]}
+            />
           </Tab>
           <Tab eventKey='quantity' title='Quantity History'>
-            <ItemHistory title='Quantity' data={this.state.item.quantity} />
+            <ItemHistory
+              title='Quantity'
+              data={[20]}
+              // data={0}
+            />
           </Tab>
         </Tabs>
       </div>
