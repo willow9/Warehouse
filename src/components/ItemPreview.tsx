@@ -44,7 +44,6 @@ export default class ItemPreview extends Component<IProductProps, IProductState>
         <Tabs defaultActiveKey='details' id='uncontrolled-tab-example'>
           <Tab eventKey='details' title='Details' transition={false}>
             <div>
-              <h1>Product</h1>
               <Table striped bordered hover>
                 <TableHeader withActions={false}></TableHeader>
                 <tbody>{this.state.item ? this.renderItem(this.state.item) : null}</tbody>

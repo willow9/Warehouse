@@ -6,7 +6,7 @@ interface IProps {
 export const TableHeader: React.SFC<IProps> = (props) => {
   return (
     <thead>
-      <tr>
+      <tr className='text-center'>
         <th>Name</th>
         <th>Type</th>
         <th>Weight</th>
