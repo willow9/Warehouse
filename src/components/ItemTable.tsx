@@ -5,7 +5,7 @@ import ProductContext from "../context/ProductsContext";
 import { TableHeader } from "./TableHeader";
 
 type MyProps = {};
-type MyState = { togleActivation: boolean; quantity: number; price: number };
+type MyState = { isValueChanged: boolean };
 
 class ItemTable extends Component<MyProps, MyState> {
   static contextType = ProductContext;
@@ -13,12 +13,9 @@ class ItemTable extends Component<MyProps, MyState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      togleActivation: false,
-      quantity: 0,
-      price: 0,
+      isValueChanged: false,
     };
   }
-
   handleDelete = (e: any) => {
     const removedItem = this.context.items.find((item: any) => {
       return item.ean == e.target.id;
@@ -27,21 +24,20 @@ class ItemTable extends Component<MyProps, MyState> {
   };
   toggleCheckbox = (e: any) => {
     this.context.changeActivation(e.target.id);
-    // this.setState({ togleActivation: !this.state.togleActivation });
   };
 
   changeQuantityOrPrice = (e: any) => {
-    // this.setState({ ...this.state, [e.target.name]: e.target.value });
-    this.context.changeQuantityOrPrice(e.target.id, e.target.value, e.target.name);
-    console.log(e.target.name);
+    if (this.state.isValueChanged) {
+      this.context.changeQuantityOrPrice(e.target.id, Number(e.target.value), e.target.name);
+      this.setState({ isValueChanged: false });
+    }
   };
-  changePrice = (e: any) => {
-    // this.setState({ ...this.state, [e.target.name]: e.target.value });
-    this.context.changePrice(e.target.id, e.target.value);
+
+  preventEmptyInputs = () => {
+    this.setState({ isValueChanged: true });
+    console.log("preventEmptyInputs");
   };
-  // fixValue = (e: any) => {
-  //   this.context.changePrice(e.target.id, e.target.value);
-  // };
+
   renderItem = (item: any, index: number) => {
     return (
       <tr
@@ -66,7 +62,8 @@ class ItemTable extends Component<MyProps, MyState> {
             name='quantity'
             id={item.ean}
             placeholder={item.quantity}
-            onChange={this.changeQuantityOrPrice}
+            onBlur={this.changeQuantityOrPrice}
+            onChange={this.preventEmptyInputs}
             disabled={!item.active}
           />
         </td>
@@ -77,7 +74,7 @@ class ItemTable extends Component<MyProps, MyState> {
             id={item.ean}
             placeholder={item.price}
             onBlur={this.changeQuantityOrPrice}
-            // onChange={this.changePrice}
+            onChange={this.preventEmptyInputs}
             disabled={!item.active}
           />
         </td>
