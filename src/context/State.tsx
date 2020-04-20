@@ -22,14 +22,14 @@ export default class State extends Component<{}, ItemsState> {
 
   addItem = (item: Item) => {
     this.setState({
-      items: [...this.state.items, item],
+      items: [item, ...this.state.items],
     });
   };
   editItem = (item: Item, initialItemId: number) => {
     const newItems = this.state.items.filter((item) => {
       return item.ean !== initialItemId;
     });
-    this.setState({ items: [...newItems, item] });
+    this.setState({ items: [item, ...newItems] });
   };
   changeItemActivation = (itemId: number) => {
     const changedItems = this.state.items;
