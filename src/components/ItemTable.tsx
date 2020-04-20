@@ -84,14 +84,14 @@ class ItemTable extends Component<MyProps, MyState> {
           />
         </td>
         <td>
-          <Link to={`/products/${item.ean}`}>
+          <Link to={`${item.ean}`}>
             <button className='btn btn-info' disabled={!item.active}>
               View
             </button>
           </Link>
         </td>
         <td>
-          <Link to={`/products/${item.ean}/edit`}>
+          <Link to={`${item.ean}/edit`}>
             <button className='btn btn-primary' disabled={!item.active}>
               Edit
             </button>
@@ -115,7 +115,7 @@ class ItemTable extends Component<MyProps, MyState> {
           <tbody>{this.context.items.map(this.renderItem)}</tbody>
         </ReactBootstrap.Table>
         <div className='text-center'>
-          <Link to={`/products/create`}>
+          <Link to='create'>
             <button className='btn btn-info'>Create New Item</button>
           </Link>
           &nbsp;

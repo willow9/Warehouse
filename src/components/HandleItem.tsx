@@ -27,7 +27,7 @@ export default class HandleItem extends Component<IProps, IState> {
     let item;
     let editItem;
 
-    if (this.props.match.path === "/products/create") {
+    if (this.props.match.path === "/create") {
       item = {
         name: "",
         type: "",

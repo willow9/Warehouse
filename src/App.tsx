@@ -8,12 +8,12 @@ import State from "./context/State";
 const App = () => {
   return (
     <State>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Switch>
           <Route exact path='/' component={ItemTable} />
-          <Route exact path='/products/create' component={HandleItem} />
-          <Route exact path='/products/:ean/edit' component={HandleItem} />
-          <Route exact path='/products/:ean' component={Product} />
+          <Route exact path='/create' component={HandleItem} />
+          <Route exact path='/:ean/edit' component={HandleItem} />
+          <Route exact path='/:ean' component={Product} />
         </Switch>
       </BrowserRouter>
     </State>
