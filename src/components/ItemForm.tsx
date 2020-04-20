@@ -8,6 +8,8 @@ type IProps = {
   color: string;
   active: boolean;
   ean: number;
+  price: number;
+  quantity: number;
   editItem: boolean;
 
   handleChange: (e: any) => void;
@@ -22,6 +24,7 @@ const ItemForm: React.SFC<IProps> = (props) => {
       <h1>{props.title}</h1>
       <form>
         <div className='form-group'>
+          <label>Name</label>
           <input
             id='name'
             type='text'
@@ -32,17 +35,18 @@ const ItemForm: React.SFC<IProps> = (props) => {
           />
         </div>
         <div className='form-group'>
+          <label>Type</label>
           <input
             id='type'
             type='text'
             className='form-control'
             placeholder={props.type}
-            value={props.type}
             required={!props.editItem}
             onChange={props.handleChange}
           />
         </div>
         <div className='form-group'>
+          <label>Weight</label>
           <input
             id='weight'
             type='number'
@@ -53,6 +57,7 @@ const ItemForm: React.SFC<IProps> = (props) => {
           />
         </div>
         <div className='form-group'>
+          <label>Color</label>
           <input
             id='color'
             type='text'
@@ -63,14 +68,42 @@ const ItemForm: React.SFC<IProps> = (props) => {
           />
         </div>
         <div className='form-group'>
+          <label>EAN</label>
           <input
             id='ean'
             type='number'
             className='form-control'
-            placeholder={`${String(props.ean)} (Only numbers are allowed)`}
+            placeholder={String(props.ean)}
             required={!props.editItem}
             onChange={props.handleChange}
           />
+          <small className='form-text text-muted'>Only numbers are allowed.</small>
+        </div>
+        <div className='form-group'>
+          <label>Price</label>
+          <input
+            id='price'
+            type='number'
+            className='form-control'
+            placeholder={String(props.price)}
+            required={!props.editItem}
+            disabled={props.editItem}
+            onChange={props.handleChange}
+          />
+          <small className='form-text text-muted'>Only numbers are allowed.</small>
+        </div>
+        <div className='form-group'>
+          <label>Quantity</label>
+          <input
+            id='quantity'
+            type='number'
+            className='form-control'
+            placeholder={String(props.quantity)}
+            required={!props.editItem}
+            disabled={props.editItem}
+            onChange={props.handleChange}
+          />
+          <small className='form-text text-muted'>Only numbers are allowed.</small>
         </div>
 
         <div className='form-check'>

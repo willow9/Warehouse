@@ -12,6 +12,10 @@ interface IState {
   color: string;
   active: boolean;
   ean: number;
+  price: number;
+  quantity: number;
+  priceHistory: Array<number>;
+  quantityHistory: Array<number>;
   initialEan: number;
   editItem: boolean;
 }
@@ -24,7 +28,18 @@ export default class HandleItem extends Component<IProps, IState> {
     let editItem;
 
     if (this.props.match.path === "/products/create") {
-      item = { name: "", type: "", weight: 0, color: "", active: false, ean: 0 };
+      item = {
+        name: "",
+        type: "",
+        weight: 0,
+        color: "",
+        active: false,
+        ean: 0,
+        price: 0,
+        quantity: 0,
+        priceHistory: [],
+        quantityHistory: [],
+      };
       editItem = false;
     } else {
       item = context.items.find((item: any) => {
@@ -39,6 +54,10 @@ export default class HandleItem extends Component<IProps, IState> {
       color: item.color,
       active: item.active,
       ean: item.ean,
+      price: item.price,
+      quantity: item.quantity,
+      priceHistory: item.priceHistory,
+      quantityHistory: item.quantityHistory,
       initialEan: item.ean,
       editItem: editItem,
     };
@@ -58,7 +77,14 @@ export default class HandleItem extends Component<IProps, IState> {
       color: this.state.color,
       active: this.state.active,
       ean: Number(this.state.ean),
+      price: Number(this.state.price),
+      quantity: Number(this.state.quantity),
+      priceHistory: this.state.priceHistory,
+      quantityHistory: this.state.quantityHistory,
     };
+    console.log("after editing");
+    console.log(newItem.priceHistory);
+
     const initialEan: number = this.state.initialEan;
     this.context.editItem(newItem, initialEan);
     this.props.history.push("/");
@@ -72,6 +98,10 @@ export default class HandleItem extends Component<IProps, IState> {
         color: this.state.color,
         active: this.state.active,
         ean: Number(this.state.ean),
+        price: Number(this.state.price),
+        quantity: Number(this.state.quantity),
+        priceHistory: [Number(this.state.price)],
+        quantityHistory: [Number(this.state.quantity)],
       };
       this.context.addItem(newItem);
       this.props.history.push("/");
@@ -83,7 +113,9 @@ export default class HandleItem extends Component<IProps, IState> {
       this.state.type === "" ||
       this.state.weight === 0 ||
       this.state.color === "" ||
-      this.state.ean === 0
+      this.state.ean === 0 ||
+      this.state.price === 0 ||
+      this.state.quantity === 0
     ) {
       return false;
     } else return true;
@@ -100,6 +132,8 @@ export default class HandleItem extends Component<IProps, IState> {
           color={this.state.color}
           active={Boolean(this.state.active)}
           ean={Number(this.state.ean)}
+          price={Number(this.state.price)}
+          quantity={Number(this.state.quantity)}
           handleChange={this.handleChange}
           handleCheckboxChange={this.handleCheckboxChange}
           changeItem={this.changeItem}
