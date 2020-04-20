@@ -9,5 +9,5 @@ export default React.createContext({
   addItem: (item: Item) => {},
   editItem: (item: Item, itemId: number) => {},
   changeQuantityOrPrice: (itemId: number, newValue: number, property: string) => {},
-  // changePrice: (itemId: number, newValue: number) => {},
+  saveToDB: () => {},
 });

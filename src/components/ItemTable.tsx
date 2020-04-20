@@ -35,7 +35,10 @@ class ItemTable extends Component<MyProps, MyState> {
 
   preventEmptyInputs = () => {
     this.setState({ isValueChanged: true });
-    console.log("preventEmptyInputs");
+  };
+
+  saveToDB = () => {
+    this.context.saveToDB();
   };
 
   renderItem = (item: any, index: number) => {
@@ -99,7 +102,7 @@ class ItemTable extends Component<MyProps, MyState> {
 
   render() {
     return (
-      <>
+      <div className='container'>
         <h1>Table</h1>
         <ReactBootstrap.Table striped bordered hover>
           <TableHeader withActions={true}></TableHeader>
@@ -108,7 +111,8 @@ class ItemTable extends Component<MyProps, MyState> {
         <Link to={`/products/create`}>
           <button>Create Item</button>
         </Link>
-      </>
+        <button onClick={this.saveToDB}>Save All Changes</button>
+      </div>
     );
   }
 }

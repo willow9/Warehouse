@@ -16,8 +16,6 @@ export default class State extends Component<{}, ItemsState> {
       return item.ean !== productId;
     });
     this.setState({ items: newItems });
-    // localStorage.removeItem("items");
-    // localStorage.setItem("items", JSON.stringify(newItems));
   };
 
   addItem = (item: Item) => {
@@ -39,9 +37,6 @@ export default class State extends Component<{}, ItemsState> {
       }
     });
     this.setState({ items: [...changedItems] });
-
-    // localStorage.removeItem("items");
-    // localStorage.setItem("items", JSON.stringify(this.state.items));
   };
 
   changeQuantityOrPrice = (itemId: number, newValue: number, property: string) => {
@@ -99,6 +94,10 @@ export default class State extends Component<{}, ItemsState> {
     });
     this.setState({ items: [...changedItems] });
   };
+  saveToLocalStorage = () => {
+    localStorage.removeItem("items");
+    localStorage.setItem("items", JSON.stringify(this.state.items));
+  };
   componentDidUpdate() {
     console.log("reender");
     console.log(this.state.items);
@@ -107,51 +106,51 @@ export default class State extends Component<{}, ItemsState> {
     const items = [
       {
         name: "Cheese",
-        type: "food",
+        type: "Food",
         weight: 12.36,
-        color: "blue",
+        color: "Blue",
         active: true,
         ean: 12121,
         quantity: 1,
         price: 23.65,
-        priceHistory: [1, 2, 3, 4, 5],
-        quantityHistory: [123, 0],
+        priceHistory: [12.3, 23.89, 30, 45.2, 23.65],
+        quantityHistory: [8, 0, 1],
       },
       {
         name: "Book",
-        type: "entertainment",
+        type: "Entertainment",
         weight: 2.36,
-        color: "white",
+        color: "White",
         active: true,
         ean: 123221,
-        quantity: 1,
-        price: 23.65,
-        priceHistory: [1, 2, 3],
-        quantityHistory: [123, 0, 23, 65.25],
+        quantity: 65,
+        price: 36,
+        priceHistory: [12.22, 24, 36],
+        quantityHistory: [29, 0, 23, 65],
       },
       {
         name: "Game",
-        type: "entertainment",
+        type: "Entertainment",
         weight: 1.3,
-        color: "NA",
+        color: "N.A.",
         active: true,
         ean: 98,
-        quantity: 1,
-        price: 23.65,
-        priceHistory: [1, 2, 3],
-        quantityHistory: [123, 0, 23, 65.25],
+        quantity: 0,
+        price: 69.65,
+        priceHistory: [100, 45.36, 69.65],
+        quantityHistory: [12, 0, 23, 0],
       },
       {
         name: "Scissors",
-        type: "tools",
+        type: "Tools",
         weight: 5.3,
         color: "silver",
         active: false,
         ean: 1258,
-        quantity: 0,
+        quantity: 1,
         price: 23.65,
-        priceHistory: [1],
-        quantityHistory: [123, 0, 23, 65.25],
+        priceHistory: [23.65],
+        quantityHistory: [3, 0, 23, 1],
       },
     ];
     if (!localStorage.getItem("items")) {
@@ -170,6 +169,7 @@ export default class State extends Component<{}, ItemsState> {
           addItem: this.addItem,
           editItem: this.editItem,
           changeQuantityOrPrice: this.changeQuantityOrPrice,
+          saveToDB: this.saveToLocalStorage,
         }}
       >
         {this.props.children}
