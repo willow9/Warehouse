@@ -8,10 +8,7 @@ type IProps = {
 
 export const ItemHistory: React.SFC<IProps> = (props) => {
   const [options] = useState({
-    chart: {
-      type: "column",
-    },
-    colors: ["#4A0"],
+    colors: ["#16a085"],
     xAxis: {
       categories: ["1st", "2nd", "3rd", "4th", "Last"],
     },
@@ -22,7 +19,7 @@ export const ItemHistory: React.SFC<IProps> = (props) => {
       {
         showInLegend: false,
 
-        // type: "line",
+        type: "line",
         data: props.data,
       },
     ],

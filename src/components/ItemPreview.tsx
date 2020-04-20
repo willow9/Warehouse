@@ -53,16 +53,14 @@ export default class ItemPreview extends Component<IProductProps, IProductState>
           </Tab>
           <Tab eventKey='price' title='Price History' transition={false}>
             <ItemHistory
-              title='Price'
-              // data={this.state.item.history.price ? this.state.item.history.price : [0]}
-              data={[45, 86, 23, 23]}
+              title={`Price of ${this.state.item.name}`}
+              data={this.state.item.priceHistory ? this.state.item.priceHistory : [0]}
             />
           </Tab>
           <Tab eventKey='quantity' title='Quantity History'>
             <ItemHistory
-              title='Quantity'
-              data={[20]}
-              // data={0}
+              title={`Quantity of ${this.state.item.name}`}
+              data={this.state.item.quantityHistory ? this.state.item.quantityHistory : [0]}
             />
           </Tab>
         </Tabs>
