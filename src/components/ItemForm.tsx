@@ -14,8 +14,8 @@ type IProps = {
 
   handleChange: (e: any) => void;
   handleCheckboxChange: (e: any) => void;
-  changeItem: (e: any) => void;
-  addItem: (e: any) => void;
+  changeItem?: (e: any) => void;
+  addItem?: (e: any) => void;
 };
 
 const ItemForm: React.SFC<IProps> = (props) => {

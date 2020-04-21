@@ -17,36 +17,18 @@ interface IState {
   priceHistory: Array<number>;
   quantityHistory: Array<number>;
   initialEan: number;
-  editItem: boolean;
 }
 
-export default class HandleItem extends Component<IProps, IState> {
+export default class EditItem extends Component<IProps, IState> {
   static contextType = ProductContext;
   constructor(props: IProps, context: any) {
     super(props);
     let item;
-    let editItem;
 
-    if (this.props.match.path === "/create") {
-      item = {
-        name: "",
-        type: "",
-        weight: 0,
-        color: "",
-        active: false,
-        ean: 0,
-        price: 0,
-        quantity: 0,
-        priceHistory: [],
-        quantityHistory: [],
-      };
-      editItem = false;
-    } else {
-      item = context.items.find((item: any) => {
-        return this.props.match.params.ean == item.ean;
-      });
-      editItem = true;
-    }
+    item = context.items.find((item: any) => {
+      return this.props.match.params.ean == item.ean;
+    });
+
     this.state = {
       name: item.name,
       type: item.type,
@@ -59,7 +41,6 @@ export default class HandleItem extends Component<IProps, IState> {
       priceHistory: item.priceHistory,
       quantityHistory: item.quantityHistory,
       initialEan: item.ean,
-      editItem: editItem,
     };
   }
   handleChange = (e: any) => {
@@ -87,43 +68,12 @@ export default class HandleItem extends Component<IProps, IState> {
     this.context.editItem(newItem, initialEan);
     this.props.history.push("/");
   };
-  addItem = () => {
-    if (this.validateInput()) {
-      const newItem: any = {
-        name: this.state.name,
-        type: this.state.type,
-        weight: Number(this.state.weight),
-        color: this.state.color,
-        active: this.state.active,
-        ean: Number(this.state.ean),
-        price: Number(this.state.price),
-        quantity: Number(this.state.quantity),
-        priceHistory: [Number(this.state.price)],
-        quantityHistory: [Number(this.state.quantity)],
-      };
-      this.context.addItem(newItem);
-      this.props.history.push("/");
-    }
-  };
-  validateInput = () => {
-    if (
-      this.state.name === "" ||
-      this.state.type === "" ||
-      this.state.weight === 0 ||
-      this.state.color === "" ||
-      this.state.ean === 0 ||
-      this.state.price === 0 ||
-      this.state.quantity === 0
-    ) {
-      return false;
-    } else return true;
-  };
 
   render() {
     return (
       <div className='container'>
         <ItemForm
-          title={this.state.editItem ? "Edit Item" : "Add New Item"}
+          title={"Edit Item"}
           name={this.state.name}
           type={this.state.type}
           weight={Number(this.state.weight)}
@@ -135,8 +85,7 @@ export default class HandleItem extends Component<IProps, IState> {
           handleChange={this.handleChange}
           handleCheckboxChange={this.handleCheckboxChange}
           changeItem={this.changeItem}
-          addItem={this.addItem}
-          editItem={this.state.editItem}
+          editItem={true}
         />
       </div>
     );

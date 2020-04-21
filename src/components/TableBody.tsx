@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import ProductContext from "../context/ProductsContext";
+
 type IProps = {
   item?: any;
 
@@ -16,10 +17,11 @@ export const TableBody: React.SFC<IProps> = (props) => {
   const renderItem = (item: any) => {
     return (
       <tr
+        className='text-center'
         key={item.ean}
         style={{
           backgroundColor: item.active ? "white" : "#f2f0f0",
-          color: item.quantity == 0 ? "red" : "#212529",
+          color: item.quantity === 0 ? "red" : "#212529",
         }}
       >
         <td>{item.name}</td>
