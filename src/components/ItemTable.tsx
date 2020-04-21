@@ -2,13 +2,12 @@ import React, { Component } from "react";
 import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ProductContext from "../context/ProductsContext";
-import { TableHeader } from "./TableHeader";
 import TableBody from "./TableBody";
+import { TableHeader } from "./TableHeader";
 
-type MyProps = {};
-type MyState = { isValueChanged: boolean };
+type IState = { isValueChanged: boolean };
 
-class ItemTable extends Component<MyProps, MyState> {
+class ItemTable extends Component<{}, IState> {
   static contextType = ProductContext;
 
   constructor(props: any) {
@@ -17,12 +16,14 @@ class ItemTable extends Component<MyProps, MyState> {
       isValueChanged: false,
     };
   }
+
   handleDelete = (e: any) => {
     const removedItem = this.context.items.find((item: any) => {
       return item.ean == e.target.id;
     });
     this.context.removeItem(removedItem.ean);
   };
+
   toggleCheckbox = (e: any) => {
     this.context.changeActivation(e.target.id);
   };

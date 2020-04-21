@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import AddItem from "./components/AddItem";
+import EditItem from "./components/EditItem";
 import ItemPreview from "./components/ItemPreview";
 import ItemTable from "./components/ItemTable";
 import State from "./context/State";
-import EditItem from "./components/EditItem";
-import AddItem from "./components/AddItem";
 
 const App = () => {
   return (

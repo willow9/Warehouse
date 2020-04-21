@@ -4,17 +4,17 @@ import { RouteComponentProps } from "react-router-dom";
 import ProductContext from "../context/ProductsContext";
 import Item from "../interfaces/IItem";
 import { ItemHistory } from "./ItemHistory";
-import { TableHeader } from "./TableHeader";
 import TableBody from "./TableBody";
+import { TableHeader } from "./TableHeader";
 
-interface IProductProps extends RouteComponentProps<{ ean: string }> {}
-interface IProductState {
+interface IProps extends RouteComponentProps<{ ean: string }> {}
+interface IState {
   item: Item;
 }
 
-export default class ItemPreview extends Component<IProductProps, IProductState> {
+export default class ItemPreview extends Component<IProps, IState> {
   static contextType = ProductContext;
-  constructor(props: IProductProps, context: any) {
+  constructor(props: IProps, context: any) {
     super(props);
 
     this.state = {

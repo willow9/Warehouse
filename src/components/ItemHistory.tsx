@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import * as Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
+
 type IProps = {
   title: string;
   data: Array<number>;

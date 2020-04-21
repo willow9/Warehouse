@@ -39,6 +39,7 @@ export default class AddItem extends Component<IProps, IState> {
   handleChange = (e: any) => {
     this.setState({ ...this.state, [e.target.id]: e.target.value });
   };
+
   handleCheckboxChange = () => {
     this.setState({ ...this.state, active: !this.state.active });
   };
@@ -61,6 +62,7 @@ export default class AddItem extends Component<IProps, IState> {
       this.props.history.push("/");
     }
   };
+
   validateInput = () => {
     if (
       this.state.name === "" ||

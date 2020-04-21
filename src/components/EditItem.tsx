@@ -46,9 +46,11 @@ export default class EditItem extends Component<IProps, IState> {
   handleChange = (e: any) => {
     this.setState({ ...this.state, [e.target.id]: e.target.value });
   };
+
   handleCheckboxChange = () => {
     this.setState({ ...this.state, active: !this.state.active });
   };
+
   changeItem = (e: any) => {
     e.preventDefault();
     const newItem: any = {

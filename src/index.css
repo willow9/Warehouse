@@ -16,10 +16,12 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+
 h1 {
   text-align: center;
   padding-bottom: 0.625rem;
 }
+
 .short-input-field {
   width: 5rem;
   text-align: center;

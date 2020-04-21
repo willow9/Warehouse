@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import ProductContext from "./ProductsContext";
 import Item from "../interfaces/IItem";
 
-type ItemsState = { items: Array<Item> };
+type IState = { items: Array<Item> };
 
-export default class State extends Component<{}, ItemsState> {
+export default class State extends Component<{}, IState> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -23,12 +23,14 @@ export default class State extends Component<{}, ItemsState> {
       items: [item, ...this.state.items],
     });
   };
+
   editItem = (item: Item, initialItemId: number) => {
     const newItems = this.state.items.filter((item) => {
       return item.ean !== initialItemId;
     });
     this.setState({ items: [item, ...newItems] });
   };
+
   changeItemActivation = (itemId: number) => {
     const changedItems = this.state.items;
     changedItems.find((item) => {
@@ -40,16 +42,14 @@ export default class State extends Component<{}, ItemsState> {
   };
 
   changeQuantityOrPrice = (itemId: number, newValue: number, property: string) => {
-    console.log(newValue);
-
     const changedItems = this.state.items;
     changedItems.find((item) => {
       if (item.ean == itemId) {
-        if (property == "price") {
+        if (property === "price") {
           item["price"] = newValue;
           this.changePriceHistory(itemId, newValue);
         }
-        if (property == "quantity") {
+        if (property === "quantity") {
           item["quantity"] = newValue;
           this.changeQuantityHistory(itemId, newValue);
         }
@@ -76,6 +76,7 @@ export default class State extends Component<{}, ItemsState> {
     });
     this.setState({ items: [...changedItems] });
   };
+
   changeQuantityHistory = (itemId: number, newValue: number) => {
     const changedItems = this.state.items;
     changedItems.find((item) => {
@@ -92,8 +93,11 @@ export default class State extends Component<{}, ItemsState> {
         }
       }
     });
+    console.log(changedItems);
+
     this.setState({ items: [...changedItems] });
   };
+
   saveToLocalStorage = () => {
     localStorage.removeItem("items");
     localStorage.setItem("items", JSON.stringify(this.state.items));

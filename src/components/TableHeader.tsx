@@ -1,7 +1,8 @@
 import React from "react";
-interface IProps {
+
+type IProps = {
   withActions: boolean;
-}
+};
 
 export const TableHeader: React.SFC<IProps> = (props) => {
   return (
