@@ -82,8 +82,6 @@ export default class HandleItem extends Component<IProps, IState> {
       priceHistory: this.state.priceHistory,
       quantityHistory: this.state.quantityHistory,
     };
-    console.log("after editing");
-    console.log(newItem.priceHistory);
 
     const initialEan: number = this.state.initialEan;
     this.context.editItem(newItem, initialEan);

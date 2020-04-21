@@ -98,10 +98,7 @@ export default class State extends Component<{}, ItemsState> {
     localStorage.removeItem("items");
     localStorage.setItem("items", JSON.stringify(this.state.items));
   };
-  componentDidUpdate() {
-    console.log("reender");
-    console.log(this.state.items);
-  }
+
   componentDidMount() {
     const items = [
       {

@@ -5,6 +5,7 @@ import ProductContext from "../context/ProductsContext";
 import Item from "../interfaces/IItem";
 import { ItemHistory } from "./ItemHistory";
 import { TableHeader } from "./TableHeader";
+import TableBody from "./TableBody";
 
 interface IProductProps extends RouteComponentProps<{ ean: string }> {}
 interface IProductState {
@@ -22,21 +23,6 @@ export default class ItemPreview extends Component<IProductProps, IProductState>
       }),
     };
   }
-  renderItem = (item: Item) => {
-    return (
-      <>
-        <tr key={item.ean}>
-          <td>{item.name}</td>
-          <td>{item.type}</td>
-          <td>{item.weight}</td>
-          <td>{item.color}</td>
-          <td>{item.ean}</td>
-          <td>{item.quantity}</td>
-          <td>{item.price}</td>
-        </tr>
-      </>
-    );
-  };
 
   render() {
     return (
@@ -46,7 +32,7 @@ export default class ItemPreview extends Component<IProductProps, IProductState>
             <div>
               <Table striped bordered hover>
                 <TableHeader withActions={false}></TableHeader>
-                <tbody>{this.state.item ? this.renderItem(this.state.item) : null}</tbody>
+                <TableBody item={this.state.item} />
               </Table>
             </div>
           </Tab>
