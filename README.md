@@ -1,5 +1,5 @@
 ## Warehouse stock managament app
-User can see the product list, add new item, edit description, amount, price, track price and quantity changes (last 5).
+User can see the product list, add a new item, edit the description, amount, price, track price and quantity changes (last 5).
 
 ### Technologies
 App created using: 
