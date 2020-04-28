@@ -47,54 +47,33 @@ export default class State extends Component<{}, IState> {
       if (item.ean == itemId) {
         if (property === "price") {
           item["price"] = newValue;
-          this.changePriceHistory(itemId, newValue);
+          this.changeHistory(itemId, newValue, "priceHistory");
         }
         if (property === "quantity") {
           item["quantity"] = newValue;
-          this.changeQuantityHistory(itemId, newValue);
+          this.changeHistory(itemId, newValue, "quantityHistory");
         }
       }
     });
     this.setState({ items: [...changedItems] });
   };
 
-  changePriceHistory = (itemId: number, newValue: number) => {
+  changeHistory = (itemId: number, newValue: number, property: string) => {
     const changedItems = this.state.items;
     changedItems.find((item) => {
-      if (item.ean == itemId) {
-        if (item.priceHistory.length === 5 && item.priceHistory[4] != newValue) {
+      if (item.ean == itemId && (property == "priceHistory" || property == "quantityHistory")) {
+        if (item[property].length === 5 && item[property][4] != newValue) {
           for (let i = 0; i <= 4; i++) {
-            item.priceHistory[i] = item.priceHistory[i + 1];
+            item[property][i] = item[property][i + 1];
           }
-          item.priceHistory[4] = Number(newValue);
+          item[property][4] = Number(newValue);
         } else {
-          if (item.priceHistory[item.priceHistory.length - 1] != newValue) {
-            item.priceHistory[item.priceHistory.length] = Number(newValue);
+          if (item[property][item[property].length - 1] != newValue) {
+            item[property][item[property].length] = Number(newValue);
           }
         }
       }
     });
-    this.setState({ items: [...changedItems] });
-  };
-
-  changeQuantityHistory = (itemId: number, newValue: number) => {
-    const changedItems = this.state.items;
-    changedItems.find((item) => {
-      if (item.ean == itemId) {
-        if (item.quantityHistory.length === 5 && item.quantityHistory[4] != newValue) {
-          for (let i = 0; i <= 4; i++) {
-            item.quantityHistory[i] = item.quantityHistory[i + 1];
-          }
-          item.quantityHistory[4] = Number(newValue);
-        } else {
-          if (item.quantityHistory[item.quantityHistory.length - 1] != newValue) {
-            item.quantityHistory[item.quantityHistory.length] = Number(newValue);
-          }
-        }
-      }
-    });
-    console.log(changedItems);
-
     this.setState({ items: [...changedItems] });
   };
 
